@@ -2,6 +2,8 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 const CreatePost = () => {
   const initialValues = {
     title: "",
@@ -13,12 +15,14 @@ const CreatePost = () => {
     postText: Yup.string().required(),
     userName: Yup.string().min(3).max(15).required(),
   });
-  const onSubmit = (data, { resetForm }) => {
+  const onSubmit = (data) => {
     axios.post("http://localhost:3001/posts", data).then((response) => {
-      console.log("IT WORKED");
-      resetForm();
+      navigate("/");
     });
   };
+
+  const navigate = useNavigate();
+
   return (
     <div className="createPostPage">
       <Formik
