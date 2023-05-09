@@ -57,7 +57,9 @@ body {
 
 /* CREATE POST PAGE CSS */
 
-.createPostPage {
+.createPostPage,
+.registrationPage,
+.loginPage {
   font-family: Arial, Helvetica, sans-serif;
   width: 100vw;
   height: 70vh;
@@ -76,7 +78,7 @@ body {
   border-radius: 5px;
 }
 
-.formContainer #inputCreatePost {
+.formContainer .inputCreatePost {
   height: 40px;
   margin-top: 10px;
   margin-bottom: 10px;

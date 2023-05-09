@@ -31,25 +31,28 @@ const CreatePost = () => {
         validationSchema={validationSchema}
       >
         <Form className="formContainer">
-          <label htmlFor="inputCreatePost">Title: </label>
+          <label htmlFor="title">Title: </label>
           <ErrorMessage name="title" component="span" />
           <Field
-            id="inputCreatePost"
+            className="inputCreatePost"
             name="title"
+            id="title"
             placeholder="(EX. Title...)"
           />
-          <label htmlFor="inputCreatePost">Post: </label>
+          <label htmlFor="postText">Post: </label>
           <ErrorMessage name="postText" component="span" />
           <Field
-            id="inputCreatePost"
+            className="inputCreatePost"
             name="postText"
+            id="postText"
             placeholder="(EX. post...)"
           />
-          <label htmlFor="inputCreatePost">username: </label>
+          <label htmlFor="userName">username: </label>
           <ErrorMessage name="userName" component="span" />
           <Field
-            id="inputCreatePost"
+            className="inputCreatePost"
             name="userName"
+            id="userName"
             placeholder="(EX. John123...)"
           />
           <button type="submit">Create Post</button>
