@@ -1,22 +1,24 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../helpers/AuthContext";
 
 const Login = () => {
-  const [userName, setUserName] = useState("");
+  const [username, setusername] = useState("");
   const [password, setPassword] = useState("");
+  const { setAuthState } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
   const login = () => {
-    const data = { userName: userName, password: password };
+    const data = { username: username, password: password };
     axios.post("http://localhost:3001/auth/login", data).then((response) => {
       if (response.data.error) {
         alert(response.data.error);
-        localStorage.setItem("accessToken", response.data.error);
-        console.log(response.data.error);
+        // localStorage.setItem("accessToken", response.data.error);
       } else {
         localStorage.setItem("accessToken", response.data);
+        setAuthState(true);
         navigate("/");
       }
     });
@@ -24,14 +26,14 @@ const Login = () => {
   return (
     <div className="loginPage">
       <div className="formContainer">
-        <label htmlFor="userNameLogin">Your username:</label>
+        <label htmlFor="usernameLogin">Your username:</label>
         <input
           className="inputCreatePost"
-          id="userNameLogin"
+          id="usernameLogin"
           type="text"
           onChange={(event) => {
             const value = event.target.value.trim(); // remove white spaces before and after the input value
-            setUserName(value);
+            setusername(value);
           }}
         ></input>
         <label htmlFor="passwordLogin">Your password:</label>

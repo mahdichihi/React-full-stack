@@ -2,14 +2,15 @@ const express = require("express");
 const router = express.Router();
 const { Users } = require("../models");
 const bcrypt = require("bcrypt");
+const { validateToken } = require("../middlewares/AuthMiddleware");
 
 const { sign } = require("jsonwebtoken");
 
 router.post("/", async (req, res) => {
-  const { userName, password } = req.body;
+  const { username, password } = req.body;
   bcrypt.hash(password, 10).then((hash) => {
     Users.create({
-      userName: userName,
+      username: username,
       password: hash,
     });
   });
@@ -17,9 +18,9 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const { userName, password } = req.body;
+  const { username, password } = req.body;
 
-  const user = await Users.findOne({ where: { userName: userName } });
+  const user = await Users.findOne({ where: { username: username } });
 
   if (!user) {
     res.json({ error: "User doesn't exist!" });
@@ -29,7 +30,7 @@ router.post("/login", async (req, res) => {
         res.json({ error: "Wrong username and password combination!" });
       } else {
         const accessToken = sign(
-          { userName: user.userName, id: user.id },
+          { username: user.username, id: user.id },
           "importantsecret"
         );
         res.json(accessToken);
@@ -37,5 +38,9 @@ router.post("/login", async (req, res) => {
     });
   }
 });
+
+router.get("/auth", validateToken, (req, res) => {
+  res.json(req.user);
+}); // this end point will check if we're authenticated or not
 
 module.exports = router;

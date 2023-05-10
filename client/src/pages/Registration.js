@@ -4,11 +4,11 @@ import axios from "axios";
 
 const Registration = () => {
   const initialValues = {
-    userName: "",
+    username: "",
     password: "",
   };
   const validationSchema = Yup.object().shape({
-    userName: Yup.string().min(3).max(15).required(),
+    username: Yup.string().min(3).max(15).required(),
     password: Yup.string().min(4).max(20).required(),
   });
 
@@ -25,13 +25,13 @@ const Registration = () => {
         validationSchema={validationSchema}
       >
         <Form className="formContainer">
-          <label htmlFor="userNameReg">Username: </label>
-          <ErrorMessage name="userName" component="span" />
+          <label htmlFor="usernameReg">username: </label>
+          <ErrorMessage name="username" component="span" />
           <Field
             autoComplete="off"
             className="inputCreatePost"
-            name="userName"
-            id="userNameReg"
+            name="username"
+            id="usernameReg"
             placeholder="(EX. John123...)"
           />
           <label htmlFor="passwordReg">Password: </label>

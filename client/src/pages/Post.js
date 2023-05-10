@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
 
 const Post = () => {
   let { id } = useParams();
@@ -36,7 +37,10 @@ const Post = () => {
         if (response.data.error) {
           alert(response.data.error);
         } else {
-          const commentToAdd = { commentBody: newComment };
+          const commentToAdd = {
+            commentBody: newComment,
+            username: response.data.username,
+          };
           setComments([...comments, commentToAdd]);
           setNewComment("");
         }
@@ -92,7 +96,7 @@ const Post = () => {
         <div className="post" id="individual">
           <div className="title">{postObject.title}</div>
           <div className="body">{postObject.postText}</div>
-          <div className="footer">{postObject.userName}</div>
+          <div className="footer">{postObject.username}</div>
         </div>
       </div>
       <div className="rightSide">
@@ -116,8 +120,17 @@ const Post = () => {
             .map((comment, key) => (
               <div key={key} className="comment">
                 {comment.commentBody}
-                <div className="commentDate">
-                  {getDateDifference(comment.createdAt)}
+                <div className="user">
+                  <div>
+                    <span>
+                      <FaUserCircle />
+                    </span>
+                    <span> {comment.username}</span>
+                  </div>
+
+                  <div className="commentDate">
+                    {getDateDifference(comment.createdAt)}
+                  </div>
                 </div>
               </div>
             ))}

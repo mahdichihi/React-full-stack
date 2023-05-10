@@ -8,12 +8,12 @@ const CreatePost = () => {
   const initialValues = {
     title: "",
     postText: "",
-    userName: "",
+    username: "",
   };
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("you must input a title"),
     postText: Yup.string().required(),
-    userName: Yup.string().min(3).max(15).required(),
+    username: Yup.string().min(3).max(15).required(),
   });
   const onSubmit = (data) => {
     axios.post("http://localhost:3001/posts", data).then((response) => {
@@ -47,12 +47,12 @@ const CreatePost = () => {
             id="postText"
             placeholder="(EX. post...)"
           />
-          <label htmlFor="userName">username: </label>
-          <ErrorMessage name="userName" component="span" />
+          <label htmlFor="username">username: </label>
+          <ErrorMessage name="username" component="span" />
           <Field
             className="inputCreatePost"
-            name="userName"
-            id="userName"
+            name="username"
+            id="username"
             placeholder="(EX. John123...)"
           />
           <button type="submit">Create Post</button>
